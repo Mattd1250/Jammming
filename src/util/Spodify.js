@@ -27,9 +27,17 @@ const Spotify = {
   },
 
   search(searchTerm) {
-    accessToken = this.getAccessToken();
+    if (!accessToken) {
+      accessToken = this.getAccessToken();
+    }
+    {
+      console.log(accessToken);
+    }
     return fetch(
-      `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,
+      `https://api.spotify.com/v1/search?type=track&q=${searchTerm.replace(
+        " ",
+        "%20"
+      )}`,
       {
         headers: { Authorization: `Bearer ${accessToken}` }
       }
@@ -51,10 +59,13 @@ const Spotify = {
   },
 
   async savePlaylist(playlistName, trackUris) {
+    if (!accessToken) {
+      accessToken = this.getAccessToken();
+    }
     if (!playlistName || !trackUris) {
       return;
     }
-    accessToken = this.getAccessToken();
+    //accessToken = this.getAccessToken();
     let userId;
     let playlistId;
     try {

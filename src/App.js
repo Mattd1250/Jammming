@@ -10,27 +10,8 @@ class App extends Component {
     super(props);
     this.state = {
       searchResults: [],
-      playlistName: "RealMusic",
-      playlistTracks: [
-        {
-          id: 4,
-          name: "Why",
-          artist: "NF",
-          album: "Too Many Faces"
-        },
-        {
-          id: 5,
-          name: "Warm up",
-          artist: "NF",
-          album: "Perception"
-        },
-        {
-          id: 6,
-          name: "Outro",
-          artist: "NF",
-          album: "Perception"
-        }
-      ]
+      playlistName: "New Playlist",
+      playlistTracks: []
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -40,12 +21,13 @@ class App extends Component {
   }
 
   addTrack(track) {
-    if (
-      this.state.playlistTracks.find(savedTrack => savedTrack.id !== track.id)
-    ) {
-      const newPlaylist = [...this.state.playlistTracks, track];
+    let tracks = this.state.playlistTracks;
+    if (tracks.find(savedTrack => savedTrack.uri === track.uri)) {
+      return alert("This is already in Playlist");
+    } else {
+      tracks.push(track);
       this.setState({
-        playlistTracks: newPlaylist
+        playlistTracks: tracks
       });
     }
   }

@@ -10,7 +10,6 @@ class SearchBar extends Component {
   }
 
   search() {
-    preventDefault();
     this.props.onSearch(this.state.term);
   }
 

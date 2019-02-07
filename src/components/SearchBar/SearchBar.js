@@ -9,7 +9,8 @@ class SearchBar extends Component {
     this.handleTermChange = this.handleTermChange.bind(this);
   }
 
-  search() {
+  search(e) {
+    e.preventDefault();
     this.props.onSearch(this.state.term);
   }
 
@@ -22,10 +23,13 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="SearchBar">
-        <input
-          placeholder="Enter A Song, Album, or Artist"
-          onChange={this.handleTermChange}
-        />
+        <form onSubmit={this.search}>
+          <input
+            type="text"
+            placeholder="Enter A Song, Album, or Artist"
+            onChange={this.handleTermChange}
+          />
+        </form>
         <a onClick={this.search}>SEARCH</a>
       </div>
     );
